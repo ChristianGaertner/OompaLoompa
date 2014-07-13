@@ -64,7 +64,6 @@ module.exports = (robot) ->
       return
 
     room = msg.message.room
-    console.log room
     robot.adapter.command 'PRIVMSG', room, "\u0001ACTION slaps #{msg.message.user.name}\u0001"
 
 
