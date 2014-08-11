@@ -34,10 +34,6 @@ urls =
 
 module.exports = (robot) ->
 
-  robot.hear /DaGardner$/i, (msg) ->
-    if AWAY
-      msg.send "DaGardner ist noch bis Ende Juli weg!"
-
   robot.hear /^test$/i, (msg) ->
     msg.send "Bestanden"
 

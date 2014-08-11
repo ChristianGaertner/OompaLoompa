@@ -28,6 +28,10 @@ module.exports = (robot) ->
 
 #########
   robot.respond /mcseu$/i, (msg) ->
+    return msg.send "Monitor ist und bleibt erstmal offline!"
+
+#########
+  robot.respond /fck_chabbster_mcseu$/i, (msg) ->
     displayUptime api.keys.mcseu, robot, msg, 'vor 30 Tagen'
 
 #########

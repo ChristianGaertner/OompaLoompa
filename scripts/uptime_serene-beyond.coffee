@@ -14,6 +14,10 @@ module.exports = (robot) ->
 
 #########
   robot.respond /beta mcseu$/i, (msg) ->
+    msg.send "Monitor ist und bleibt erstmal offline!"
+
+#########
+  robot.respond /fck_chabbster_beta_mcseu$/i, (msg) ->
     displayUptime robot, msg
 
 
