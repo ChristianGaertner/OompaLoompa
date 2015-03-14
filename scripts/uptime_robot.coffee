@@ -8,8 +8,6 @@
 #   None
 #
 # Commands:
-#   hubot mcseu notify - DEPRECATED
-#   hubot mcseu - Display if the minecraft-server.eu is down
 #   hubot craftlist - Display if craftlsit.de is down
 #   hubot specialcraft - Display if the specialcraft.eu is down
 
@@ -23,14 +21,6 @@ api = {
 }
 module.exports = (robot) ->
 
-  robot.respond /mcseu notify$/i, (msg) ->
-    msg.send 'Es ist von nun an nicht mehr von Nöten die Benachrichtung zu aktivieren. Dies passiert automatisch!'
-
-#########
-  robot.respond /mcseu$/i, (msg) ->
-    displayUptime api.keys.mcseu, robot, msg, 'vor 30 Tagen'
-
-#########
   robot.respond /craftlist$/i, (msg) ->
     displayUptime api.keys.craftlist, robot, msg, 'vor 30 Tagen'
 
