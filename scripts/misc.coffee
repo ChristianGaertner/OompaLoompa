@@ -31,6 +31,7 @@ urls =
     'https://d24w6bsrhbeh9d.cloudfront.net/photo/aBKergD_460sa.gif'
   ],
   sixtyfivewat: 'http://pix.echtlustig.com/1308/65-wat.jpg',
+  watgun: 'http://img.pr0gramm.com/2014/08/21/6e9e66df520ba625.gif'
 
 module.exports = (robot) ->
 
@@ -46,9 +47,15 @@ module.exports = (robot) ->
   robot.hear /^65 ?wat\??$/i, (msg) ->
     msg.send urls.sixtyfivewat
 
+  robot.hear /^watgun$/i, (msg) ->
+    msg.send urls.watgun
+
   robot.hear /^nigg(a|er)watt?s?\??$/i, (msg) ->
     google msg, 'niggawatt', (url) ->
       msg.send url
+
+  robot.hear /^!away$/i, (msg) ->
+    msg.send "http://sackheads.org/~bnaylor/spew/away_msgs.html"
 
   robot.hear /^kot$/i, (msg) ->
     google msg, 'kot haufen', (url) ->
@@ -61,11 +68,17 @@ module.exports = (robot) ->
   robot.hear /^PARTY$/i, (msg) ->
     name = msg.message.user.name
     unless name.indexOf('wbk') > -1 || name.indexOf('kramer') > -1
+      google msg, 'partyhard', (url) ->
+        msg.send url
+      
       return
 
     room = msg.message.room
     robot.adapter.command 'PRIVMSG', room, "\u0001ACTION slaps #{msg.message.user.name}\u0001"
 
+  robot.hear /^dafuq$/i, (msg) ->
+    google msg, 'dafuq', (url) ->
+      msg.send url
 
 
 google = (msg, query, animated, faces, cb) ->
