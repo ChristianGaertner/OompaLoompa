@@ -100,6 +100,7 @@ module.exports = (robot) ->
       content = cmds[name][2]
       user = cmds[name][3]
       if isUrl content
+        type = "URL"
       else
         type = 'Google Suche'
       
