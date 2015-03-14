@@ -68,7 +68,7 @@ module.exports = (robot) ->
 
     cmds = getCmds(robot)
 
-    name = msg.match[1].trim()
+    name = msg.match[1]
 
     if cmds.hasOwnProperty name
       delete cmds[name]
