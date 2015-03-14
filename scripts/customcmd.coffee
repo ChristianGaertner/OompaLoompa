@@ -9,7 +9,7 @@
 #
 # Commands:
 #   cmd add <name>=><link|searchterm> - Adds a command. If the name starts with R: you can use regex!
-#   cmd del <name> - Deletes a command
+#   cmd del "<name>" - Deletes a command
 #   cmd show - Lists all commands
 #   cmd show <name> - Show content of command
 
@@ -62,7 +62,7 @@ module.exports = (robot) ->
 
 
 
-  robot.respond /cmd del (.*)/i, (msg) ->
+  robot.respond /cmd del "(.*)"/i, (msg) ->
     if msg.message.user.name not in acl
       return msg.send "Du hast nicht die nötigen Rechte um diesen Befehl auszuführen!"
 
