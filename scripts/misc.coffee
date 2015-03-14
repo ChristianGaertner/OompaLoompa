@@ -80,6 +80,24 @@ module.exports = (robot) ->
     google msg, 'dafuq', (url) ->
       msg.send url
 
+  robot.hear /^battle$/i, (msg) ->
+    msg.send "https://www.youtube.com/watch?v=e28JALg9E3Q"
+
+  robot.hear /^HOW\ MUCH\ IS\ THE\ FISH$/i, (msg) ->
+    msg.send "https://www.youtube.com/watch?v=deQNQn9Hfxo"
+
+  robot.hear /^wochenende$/i, (msg) ->
+    msg.send "http://www.youtube.com/watch?v=NIDGKbhlq5s"
+
+  robot.hear /^\#sysadmin$/i, (msg) ->
+    google msg, 'computer burning', (url) ->
+      msg.send url
+
+  robot.hear /(.*swag.*dreh.*|.*dreh.*swag.*)/i, (msg) ->
+    msg.send "http://www.youtube.com/watch?v=zCfm-vWuQRk"
+
+  robot.respond /music!/i, (msg) ->
+    msg.send "https://www.youtube.com/watch?v=V4frlMI3EjM"
 
 google = (msg, query, animated, faces, cb) ->
   cb = animated if typeof animated == 'function'
