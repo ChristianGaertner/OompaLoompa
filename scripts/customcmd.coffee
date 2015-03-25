@@ -123,6 +123,7 @@ module.exports = (robot) ->
 
         if regex.test(msg.match[0])
           handleMatch cmd[2], msg
+          console.log "DEBUG Custom CMD match for " + cmd[2]
   #####Dynamic Listener
       
 
