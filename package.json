@@ -9,8 +9,9 @@
     "bot"
   ],
   "scipts": {
-  	"start": "bin/hubot -a irc -n OompaLoompa -l oompa"
+    "start": "bin/hubot -a irc -n OompaLoompa -l oompa"
   },
+  "main": "bin/hubot"
   "description": "A simple helpful robot for your Company",
   "licenses": [
     {
