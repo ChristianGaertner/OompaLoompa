@@ -9,10 +9,8 @@
     "bot"
   ],
   "scipts": {
-    "start": "bin/hubot -a irc -n OompaLoompa -l oompa"
+    "start": "PORT=$OPENSHIFT_NODEJS_PORT BIND_ADDRESS=$OPENSHIFT_NODEJS_IP HEROKU_URL=$OPENSHIFT_APP_DNS bin/hubot -a irc -n OompaLoompa -l oompa"
   },
-  "main": "node_modules/.bin/hubot -a irc -n OompaLoomp -l oompa",
-  "description": "A simple helpful robot for your Company",
   "licenses": [
     {
       "type": "MIT",
