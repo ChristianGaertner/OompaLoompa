@@ -10,7 +10,7 @@
 # Commands:
 #   s/PATTERN/REPLACEMENT
 
-sedRegex = new RegExp("s(ed)?/([\\w ]+)/([\\w ]+)", "i")
+sedRegex = new RegExp("^s(ed)?/([^/]+)/([^/]+)$", "i")
 lastMsg = new Object()
 
 module.exports = (robot) ->
