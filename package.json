@@ -22,17 +22,18 @@
     "url": "https://github.com/github/hubot.git"
   },
   "dependencies": {
-    "hubot": ">= 2.6.0 < 3.0.0",
-    "hubot-scripts": ">= 2.5.0 < 3.0.0",
-    "hubot-irc": "~0.2.7",
-    "soupselect": "~0.2.0",
-    "htmlparser": "~1.7.7",
-    "moment": "~2.5.1",
-    "redis": "~0.10.1",
     "connect": "~2.13.0",
     "connect_router": "~1.8.7",
     "html-entities": "^1.0.10",
-    "jsdom": "^0.10.5"
+    "htmlparser": "~1.7.7",
+    "hubot": ">= 2.6.0 < 3.0.0",
+    "hubot-irc": "~0.2.7",
+    "hubot-scripts": ">= 2.5.0 < 3.0.0",
+    "hubot-seen": "^0.2.3",
+    "jsdom": "^0.10.5",
+    "moment": "~2.5.1",
+    "redis": "~0.10.1",
+    "soupselect": "~0.2.0"
   },
   "engines": {
     "node": ">= 0.8.x",
