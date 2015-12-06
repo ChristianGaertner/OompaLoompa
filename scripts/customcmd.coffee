@@ -16,6 +16,8 @@
 acl = ['Chrisliebaer', 'Benni1000', 'Cabraca', 'DaGardner', 'zh32']
 
 
+cache = {}
+
 module.exports = (robot) ->
 
   robot.respond /cmd add (.*)=>(.*)/i, (msg) ->    
@@ -129,11 +131,17 @@ module.exports = (robot) ->
 
 
 handleMatch = (content, msg) ->
-  
+
   if isUrl content
     return msg.send content
 
+  if content of cache
+    console.log "DEBUG Custom CMD using cache for #{content}"
+    msg.send cache[content]
+    return
+
   google msg, content, (url) ->
+      cache[content] = url
       msg.send url
 
 
@@ -154,19 +162,54 @@ setCmds = (cmds, robot) ->
 google = (msg, query, animated, faces, cb) ->
   cb = animated if typeof animated == 'function'
   cb = faces if typeof faces == 'function'
-  q = v: '1.0', rsz: '8', q: query, safe: 'off'
-  q.imgtype = 'animated' if typeof animated is 'boolean' and animated is true
-  q.imgtype = 'face' if typeof faces is 'boolean' and faces is true
-  console.log 'TRACE google img search from ccmds. for ' + query
-  msg.http('http://ajax.googleapis.com/ajax/services/search/images')
-    .query(q)
-    .get() (err, res, body) ->
-      console.log 'TRACE got google response'
-      images = JSON.parse(body)
-      images = images.responseData?.results
-      if images?.length > 0
-        image  = msg.random images
-        cb "#{image.unescapedUrl}#.png"
+  googleCseId = process.env.HUBOT_GOOGLE_CSE_ID
+  if googleCseId
+    console.log "DEBUG Custom CMD CSE IS BEING USED"
+    # Using Google Custom Search API
+    googleApiKey = process.env.HUBOT_GOOGLE_CSE_KEY
+    if !googleApiKey
+      msg.robot.logger.error "Missing environment variable HUBOT_GOOGLE_CSE_KEY"
+      msg.send "img search is not configured"
+      return
+    q =
+      q: query,
+      searchType:'image',
+      safe: process.env.HUBOT_GOOGLE_SAFE_SEARCH || 'high',
+      fields:'items(link)',
+      cx: googleCseId,
+      key: googleApiKey
+    if animated is true
+      q.fileType = 'gif'
+      q.hq = 'animated'
+      q.tbs = 'itp:animated'
+    if faces is true
+      q.imgType = 'face'
+    url = 'https://www.googleapis.com/customsearch/v1'
+    msg.http(url)
+      .query(q)
+      .get() (err, res, body) ->
+        if err
+          if res.statusCode is 403
+            msg.send "Daily image quota exceeded, try again later."
+          else
+            msg.send "Encountered an error :( #{err}"
+          return
+        if res.statusCode isnt 200
+          msg.send "Bad HTTP response :( #{res.statusCode}"
+          return
+        response = JSON.parse(body)
+        if response?.items
+          image = msg.random response.items
+          cb image.link
+        else
+          msg.send "Oops. I had trouble searching '#{query}'. Try later."
+          ((error) ->
+            msg.robot.logger.error error.message
+            msg.robot.logger
+              .error "(see #{error.extendedHelp})" if error.extendedHelp
+          ) error for error in response.error.errors if response.error?.errors
+  else
+    msg.send "Cannot search for images right now"
 
 isUrl = (string) ->
   return string.indexOf('http') == 0
